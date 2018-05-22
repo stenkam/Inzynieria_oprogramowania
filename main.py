@@ -112,6 +112,6 @@ def main():
             run = False
 
     conn.close()
-if __name__ == "__main__":
+if __name__.endswith('__main__'):
     main()
 
