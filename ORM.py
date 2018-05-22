@@ -66,7 +66,7 @@ class Klienci:
         self.ID_klienta=ID_klienta
         self.imie=Imie
         self.nazwisko=Nazwisko
-        if(Plec.capitalize() not in self.p):
+        if Plec.capitalize() not in self.p:
             self.plec=None
         else:
             self.plec=Plec
