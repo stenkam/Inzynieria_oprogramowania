@@ -1,0 +1,58 @@
+BAZA:
+
+Tablica Książki
+	Id_Książki: klucz główny, INTEGER
+	Tytuł: VARCHAR(10)
+	Autor*: VARCHAR(40)
+*podawany w kolejności: Nazwisko i Imię oddzielone spacją
+	Wydawnictwo: VARCHAR(30)
+	Rok wydania- INTEGER(4)
+	Gatunek*: CHAR(12)
+	*tylko biografia, historyczna, horror, fantastyka, naukowa, kryminalna, przygodowa, inna
+	Ilość stron: INTEGER(4)
+Tablica Wypożyczenia
+	Id_wypożyczenia: klucz główny, INTEGER
+	Id_Książki: klucz obcy, INTEGER
+	Id_Klienta: klucz obcy, INTEGER
+Tablica Klienci
+	Id_Klienta: klucz główny, INTEGER
+	Imie: VARCHAR(10)
+	Nazwisko: VARCHAR(20)
+	Płeć*: CHAR(8)
+	*wybór tylko między kobieta/mężczyzna
+
+Wykresy
+
+Ilość wypożyczonych książek z podziałem na ich gatunki
+- wykres słupkowy
+- na osi y ilość wypożyczonych książek
+- na osi x słupki podpisane gatunkami książek
+- wszystkie słupki w kolorze niebieskim rozdzielone od siebie przerwą
+- dane pobierane z tabeli Wypożyczenia
+
+Ilość posiadanych książek z podziałem na ich autorów
+- wykres słupkowy
+- na osi y ilość wypożyczonych książek
+- na osi x słupki podpisane autorami książek
+- wszystkie słupki w kolorze niebieskim rozdzielone od siebie przerwą
+- dane pobierane z tabeli Książki
+
+Jaki procent osób wypożyczających książki stanowią kobiety a ile mężczyźni
+- wykres kołowy
+- części wykresu podpisane kobieta/mężczyzna i wynikiem procentowym
+- dane pobierane z tabeli Klienci
+
+Najczęściej wypożyczane tytuły książek
+- wykres słupkowy
+- na osi y ilość wypożyczenia
+- na osi x słupki podpisane tytułami książek
+- wszystkie słupki w kolorze niebieskim rozdzielone od siebie przerwą
+- uwzględniamy  5 najczęściej wypożyczanych tytułów książek
+- dane pobierane z tabeli Wypożyczenia
+
+
+-Założyć repozytorium ✓
+-Napisać GUI (w TKinter)
+-Utworzyć bazę
+-Połączyć bazę z aplikacją
+-Napisać funkcje tworzące odpowiednie wykresy
