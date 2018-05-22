@@ -3,14 +3,10 @@ import sqlite3 as sql
 import matplotlib.pyplot as plt
 import tkinter
 
-def listToORM(list,type):
 
-    '''
-    Konwersja listy na obiekt ORM
-    :param list - rekord bazy w formie listy:
-    :param type - klasa z pliku ORM: 1-ksiazki 2-wypozyczenia 3-klienci
-    :return:
-    '''
+'''def listToORM(list,type):
+
+
 
     if(type==1):
 
@@ -40,31 +36,77 @@ def listToORM(list,type):
 
             k.append(Klienci(i[0],i[1],i[2],i[3]))
 
-        return k
-
-
+        return k'''
 
 
 def main():
 
-
-
-    conn=sql.connect("ksiegarnia.db")
+    conn = sql.connect("ksiegarnia.db")
 
     cur=conn.cursor()
 
-    ksiazki=listToORM(cur.execute("select * from Ksiazki"),1)
+   # ksiazki=listToORM(cur.execute("select * from Ksiazki"),1)
 
-    wyp=listToORM(cur.execute("select * from wypozyczenia"),2)
+   # wyp=listToORM(cur.execute("select * from wypozyczenia"),2)
 
-    klienci=listToORM(cur.execute("select * from klienci"), 3)
+  #  klienci=listToORM(cur.execute("select * from klienci"), 3)
 
 
+
+    run = True
+
+    while run:
+        c = int(input("""Wybierz wykres:
+                1. Ilość wypożyczonych książek z podziałem na ich gatunki
+                2. Ilość posiadanych książek z podziałem na ich autorów
+                3. Jaki procent osób wypożyczających książki stanowią kobiety a ile mężczyźni
+                4. Najczęściej wypożyczane tytuły książek
+                5. Koniec"""))
+        x = []
+        y = []
+
+        if c == 1:
+            data=cur.execute("select gatunek, count(gatunek) from wypozyczenia inner join ksiazki"
+                             " on wypozyczenia.id_ksiazki=ksiazki.id_ksiazki group by gatunek")
+            for i in data:
+                x.append(i[0])
+                y.append(i[1])
+            plt.bar(x, y)
+            plt.show()
+
+        elif c == 2:
+            data = cur.execute("select autor, count(autor) from ksiazki group by autor")
+            for i in data:
+                x.append(i[0])
+                y.append(i[1])
+            plt.bar(x, y)
+            plt.show()
+
+        elif c == 3:
+            data = cur.execute("select ((select 1.0*count(plec) from klienci where plec='Kobieta')/(1.0*count(plec))),"
+                               "((select 1.0*count(plec) from klienci where plec='Mezczyzna')/(1.0*count(plec)))"
+                               " from klienci")
+            for i in data:
+                x.append(i[0])
+                y.append(i[1])
+            print(x," ",y)
+            plt.pie(x, y)
+            plt.show()
+
+        elif c == 4:
+            data = cur.execute("select count(wypozyczenia.id_ksiazki),ksiazki.tytul from wypozyczenia"
+                               " inner join ksiazki on wypozyczenia.id_ksiazki=ksiazki.id_ksiazki"
+                               " group by ksiazki.id_ksiazki")
+            for i in data:
+                x.append(i[1])
+                y.append(i[0])
+            plt.bar(x, y)
+            plt.show()
+
+        else:
+            run = False
 
     conn.close()
-
-
-
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
 
