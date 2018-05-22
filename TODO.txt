@@ -52,8 +52,7 @@ Najczęściej wypożyczane tytuły książek
 
 
 -Założyć repozytorium ✓
--Napisać GUI (w TKinter)
 -Utworzyć bazę ✓
 -Przygotować ORMy ✓
 -Połączyć bazę z aplikacją ✓
--Napisać funkcje tworzące odpowiednie wykresy
+-Napisać funkcje tworzące odpowiednie wykresy ✓
