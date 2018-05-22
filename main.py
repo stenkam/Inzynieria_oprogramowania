@@ -1,7 +1,9 @@
 from ORM import *
 import sqlite3 as sql
 import matplotlib.pyplot as plt
-import tkinter
+
+#by Kamil Stenzel
+
 
 
 '''def listToORM(list,type):
@@ -87,10 +89,13 @@ def main():
                                "((select 1.0*count(plec) from klienci where plec='Mezczyzna')/(1.0*count(plec)))"
                                " from klienci")
             for i in data:
-                x.append(i[0])
-                y.append(i[1])
-            print(x," ",y)
-            plt.pie(x, y)
+                x = i[0]
+                y = i[1]
+            x = int(100 * x)
+            y = int(100 * y)
+            percentage = [x,y]
+            labels = ["Kobieta","Mezczyzna"]
+            plt.pie(percentage,labels=labels)
             plt.show()
 
         elif c == 4:
