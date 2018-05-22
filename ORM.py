@@ -51,7 +51,7 @@ class Wypozyczenia:
 
 class Klienci:
 
-    p=["mezczyzna","kobieta"]
+    p=["Mezczyzna","Kobieta"]
 
     '''
 	Id_Klienta: klucz główny, INTEGER
@@ -63,10 +63,10 @@ class Klienci:
 
     def __init__(self,ID_klienta,Imie,Nazwisko,Plec):
 
-        self.ID_klienta-ID_klienta
+        self.ID_klienta=ID_klienta
         self.imie=Imie
         self.nazwisko=Nazwisko
-        if(Plec not in self.p):
+        if(Plec.capitalize() not in self.p):
             self.plec=None
         else:
             self.plec=Plec
