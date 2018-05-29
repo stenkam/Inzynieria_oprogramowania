@@ -10,7 +10,7 @@ class Ksiazki:
 	*tylko biografia, historyczna, horror, fantastyka, naukowa, kryminalna, przygodowa, inna
 	Ilość stron: INTEGER(4)
     '''
-    gatunki=["biografia",
+    _gatunki=["biografia",
              "historyczna",
              "horror",
              "fantastyka",
@@ -25,12 +25,18 @@ class Ksiazki:
         self.tytul=tytul
         self.autor=autor #Nazwisko imie  oddzielone spacją
         self.wydawnictwo=wydawnictwo
-        self.rok_wydania=rok_wydania
-        if(gatunek not in self.gatunki):
-            self.gatunek=self.gatunki[-1]
+        if isinstance(rok_wydania, int):
+            self.rok_wydania = rok_wydania
+        else:
+            self.rok_wydania = 0
+        if(gatunek not in self._gatunki):
+            self.gatunek=self._gatunki[-1]
         else:
             self.gatunek=gatunek
-        self.ilosc_stron=ilosc_stron
+        if isinstance(ilosc_stron, int):
+            self.ilosc_stron=ilosc_stron
+        else:
+            self.ilosc_stron=0
 
 
 
@@ -51,7 +57,7 @@ class Wypozyczenia:
 
 class Klienci:
 
-    p=["Mezczyzna","Kobieta"]
+    _p=["Mezczyzna","Kobieta"]
 
     '''
 	Id_Klienta: klucz główny, INTEGER
@@ -66,7 +72,7 @@ class Klienci:
         self.ID_klienta=ID_klienta
         self.imie=Imie
         self.nazwisko=Nazwisko
-        if Plec.capitalize() not in self.p:
+        if Plec.capitalize() not in self._p:
             self.plec=None
         else:
             self.plec=Plec
