@@ -25,17 +25,17 @@ class Ksiazki:
         self.tytul=tytul
         self.autor=autor #Nazwisko imie  oddzielone spacją
         self.wydawnictwo=wydawnictwo
-        if isinstance(rok_wydania, int):
-            self.rok_wydania = rok_wydania
-        else:
-            self.rok_wydania = 0
+        try:
+            self.rok_wydania=int(rok_wydania)
+        except ValueError:
+            self.rok_wydania=0
         if(gatunek not in self._gatunki):
             self.gatunek=self._gatunki[-1]
         else:
             self.gatunek=gatunek
-        if isinstance(ilosc_stron, int):
-            self.ilosc_stron=ilosc_stron
-        else:
+        try:
+            self.ilosc_stron=int(ilosc_stron)
+        except ValueError:
             self.ilosc_stron=0
 
 
