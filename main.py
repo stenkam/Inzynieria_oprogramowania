@@ -58,7 +58,7 @@ def main():
     run = True
 
     while run:
-        c = int(input("""Wybierz wykres:
+        c = int(input("""Menu:
                 1. Ilość wypożyczonych książek z podziałem na ich gatunki
                 2. Ilość posiadanych książek z podziałem na ich autorów
                 3. Jaki procent osób wypożyczających książki stanowią kobiety a ile mężczyźni
@@ -68,46 +68,57 @@ def main():
         y = []
 
         if c == 1:
-            data=cur.execute("select gatunek, count(gatunek) from wypozyczenia inner join ksiazki"
-                             " on wypozyczenia.id_ksiazki=ksiazki.id_ksiazki group by gatunek")
-            for i in data:
-                x.append(i[0])
-                y.append(i[1])
-            plt.bar(x, y)
-            plt.show()
+            try:
+                data=cur.execute("select gatunek, count(gatunek) from wypozyczenia inner join ksiazki"
+                                 " on wypozyczenia.id_ksiazki=ksiazki.id_ksiazki group by gatunek")
+                for i in data:
+                    x.append(i[0])
+                    y.append(i[1])
+                plt.bar(x, y)
+                plt.show()
+            except Exception as e:
+                print("Błąd SQL")
 
         elif c == 2:
-            data = cur.execute("select autor, count(autor) from ksiazki group by autor")
-            for i in data:
-                x.append(i[0])
-                y.append(i[1])
-            plt.bar(x, y)
-            plt.show()
+            try:
+                data = cur.execute("select autor, count(autor) from ksiazki group by autor")
+                for i in data:
+                    x.append(i[0])
+                    y.append(i[1])
+                plt.bar(x, y)
+                plt.show()
+            except Exception as e:
+                print("Błąd SQL")
 
         elif c == 3:
-            data = cur.execute("select ((select 1.0*count(plec) from klienci where plec='Kobieta')/(1.0*count(plec))),"
-                               "((select 1.0*count(plec) from klienci where plec='Mezczyzna')/(1.0*count(plec)))"
-                               " from klienci")
-            for i in data:
-                x = i[0]
-                y = i[1]
-            x = int(100 * x)
-            y = int(100 * y)
-            percentage = [x,y]
-            labels = ["Kobieta","Mezczyzna"]
-            plt.pie(percentage,labels=labels)
-            plt.show()
+            try:
+                data = cur.execute("select ((select 1.0*count(plec) from klienci where plec='Kobieta')/(1.0*count(plec))),"
+                                   "((select 1.0*count(plec) from klienci where plec='Mezczyzna')/(1.0*count(plec)))"
+                                   " from klienci")
+                for i in data:
+                    x = i[0]
+                    y = i[1]
+                x = int(100 * x)
+                y = int(100 * y)
+                percentage = [x,y]
+                labels = ["Kobieta","Mezczyzna"]
+                plt.pie(percentage,labels=labels)
+                plt.show()
+            except Exception as e:
+                print("Błąd SQL")
 
         elif c == 4:
-            data = cur.execute("select count(wypozyczenia.id_ksiazki),ksiazki.tytul from wypozyczenia"
-                               " inner join ksiazki on wypozyczenia.id_ksiazki=ksiazki.id_ksiazki"
-                               " group by ksiazki.id_ksiazki")
-            for i in data:
-                x.append(i[1])
-                y.append(i[0])
-            plt.bar(x, y)
-            plt.show()
-
+            try:
+                data = cur.execute("select count(wypozyczenia.id_ksiazki),ksiazki.tytul from wypozyczenia"
+                                   " inner join ksiazki on wypozyczenia.id_ksiazki=ksiazki.id_ksiazki"
+                                   " group by ksiazki.id_ksiazki")
+                for i in data:
+                    x.append(i[1])
+                    y.append(i[0])
+                plt.bar(x, y)
+                plt.show()
+            except Exception as e:
+                print("Błąd SQL")
         else:
             run = False
 
